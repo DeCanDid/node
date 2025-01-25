@@ -21,6 +21,7 @@ big-desktop
   scroll-behavior: smooth;
 }
 
+
 ::-webkit-scrollbar {
   background: transparent;
   width: 0.6rem;
@@ -1816,3 +1817,4 @@ input#walletname {
     transform: rotate(1turn);
   }
 }
+
