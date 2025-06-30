@@ -38,6 +38,7 @@ html {
 
 body {
   box-sizing: border-box;
+  background-color: rgb(10, 10, 10);
 }
 
 body {
@@ -1502,8 +1503,8 @@ input#walletname {
   background-color: #0f166b;
 }
 
-.ni-2-charts-wrapper {
-}
+/* .ni-2-charts-wrapper {
+} */
 
 .ni-2-charts {
   object-fit: cover;
